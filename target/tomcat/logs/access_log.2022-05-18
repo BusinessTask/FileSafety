@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:12 +0800] "GET /sm2AndSm4/ HTTP/1.1" 200 90 http-bio-8099-exec-1 565
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:32 +0800] "GET /sm2AndSm4/front/index.html HTTP/1.1" 200 666 http-bio-8099-exec-3 21
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:32 +0800] "GET /sm2AndSm4/front/static/js/app.a4d69ecb91dcb2420dde.js HTTP/1.1" 200 28306 http-bio-8099-exec-6 3
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:32 +0800] "GET /sm2AndSm4/front/static/js/manifest.3ad1d5771e9b13dbdad2.js HTTP/1.1" 200 1163 http-bio-8099-exec-2 4
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:32 +0800] "GET /sm2AndSm4/front/static/css/app.0d9d5d60ab4e7d1c7ecdd345d3976a4e.css HTTP/1.1" 200 298441 http-bio-8099-exec-4 8
+0:0:0:0:0:0:0:1 - - [18/May/2022:13:00:32 +0800] "GET /sm2AndSm4/front/static/js/vendor.b1ef909457e9f54d42c8.js HTTP/1.1" 200 1557134 http-bio-8099-exec-5 27
