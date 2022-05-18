@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 public class SmService {
-
+//sm2String
     public Map<String, Object> sm2StringSymmetry(Map<String, Object> map) throws Exception{
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";
@@ -34,7 +34,7 @@ public class SmService {
         }
         return returnMap;
     }
-
+//sm2签名
     public Map<String, Object> sm2StringAsymmetric(Map<String, Object> map) throws Exception{
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";

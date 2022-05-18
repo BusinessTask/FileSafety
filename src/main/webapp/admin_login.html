@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>加密解密登录中心</title>
+
+    <link rel="stylesheet" href="resource/base.css">
+    <link rel="stylesheet" href="resource/reg.css">
+
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <p class="head-logo"
+           style="font-size: 33px;font-family: 'Apple Braille';color: #ffffff;font-weight: 800;padding: 110px 0 0 450px;">
+            加解密登陆中心</p>
+        <div class="form-data pos" style="margin-top: 60px;border-radius:25px;">
+            <div class="change-login">
+                <p class="account_number on" style="font-size: 19px;color: #2149f6">管理员登录</p>
+            </div>
+            <div class="form1">
+                <p class="p-input pos">
+                    <label for="num" style="">管理员账号名</label>
+                    <input type="text" id="num" name="comment111">
+                    <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="pass">请输入密码</label>
+                    <input type="password" style="display:none">
+                    <input type="password" id="pass" name="comment111" autocomplete="new-password">
+                    <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                </p>
+            </div>
+
+<!--            <a href="http://localhost:63342/sm2AndSm4/webapp/front/index.html?_ijt=dvm8sth1bhfmsa05rq469oi8l7&_ij_reload=RELOAD_ON_SAVE#/" target="_blank">-->
+
+            <button class="lang-btn off log-btn" type="button" onclick="cs()"
+                    style="background-color: #2149f6;color: #ffffff;">登录
+            </button>
+<!--            </a>-->
+            <p class="right">Powered by © 2022</p>
+        </div>
+    </div>
+</div>
+
+    <script src="resource/base.js"></script>
+
+</body>
+</html>
