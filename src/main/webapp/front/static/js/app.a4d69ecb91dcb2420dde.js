@@ -519,9 +519,9 @@ webpackJsonp([1], {
                             t.oldFile = e
                         }, expression: "oldFile"
                     }
-                }), t._v("\n    　　　文件现在路径："), a("el-input", {
+                }), t._v("\n    　　　1文件现在路径："), a("el-input", {
                     staticClass: "inputTitle",
-                    attrs: {placeholder: "文件现在路径"},
+                    attrs: {placeholder: "2文件现在路径"},
                     model: {
                         value: t.newFile, callback: function (e) {
                             t.newFile = e

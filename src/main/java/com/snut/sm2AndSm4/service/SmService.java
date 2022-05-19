@@ -136,7 +136,6 @@ public class SmService {
 
             // 验证签名sign
             if (checkSign(map)) {
-
                 SM4Utils.decryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
             } else {
                 throw new RuntimeException("签名错误");
@@ -160,7 +159,7 @@ public class SmService {
             // 生成SIGN
             String encrypt = sm3Utils.encrypt(sbf.toString());
 
-            String newFileTemp = newFile.substring(0, newFile.lastIndexOf(".")) +"." + encrypt + ".txt";
+            String newFileTemp = newFile.substring(0, newFile.lastIndexOf(".")) + "." + encrypt + ".txt";
             System.out.println("生成新文件：" + sbf.toString());
             File newfile = new File(newFileTemp);
             File oldfile = new File(newFile);
@@ -198,7 +197,7 @@ public class SmService {
             boolean verify = sm3Utils.verify(sbf.toString(), sign);
             if (verify) {
 
-                String targetPathTemp = targetPath.replace("."+sign, "");
+                String targetPathTemp = targetPath.replace("." + sign, "");
 
                 System.out.println("生成新文件：" + targetPathTemp);
 
