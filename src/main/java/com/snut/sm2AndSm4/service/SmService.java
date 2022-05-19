@@ -129,13 +129,13 @@ public class SmService {
             SM4Utils.encryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
 
             // 加密签名sign
-            encryptSign(map.get("newFile") + "");
+            encryptSign(map);
         } else {
             returnMap = map;
             byte[] keyData = (map.get("key") + "").getBytes();
 
             // 验证签名sign
-            if (checkSign(map.get("oldFile") + "")) {
+            if (checkSign(map)) {
 
                 SM4Utils.decryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
             } else {
@@ -145,11 +145,12 @@ public class SmService {
         return returnMap;
     }
 
-    public void encryptSign(String targetPath) {
+    public void encryptSign(Map<String, Object> map) {
+        String newFile = map.get("newFile") + "";
         BufferedReader reader = null;
         StringBuffer sbf = new StringBuffer();
         try {
-            reader = new BufferedReader(new FileReader(new File(targetPath)));
+            reader = new BufferedReader(new FileReader(new File(newFile)));
             String tempStr;
             while ((tempStr = reader.readLine()) != null) {
                 sbf.append(tempStr);
@@ -158,12 +159,15 @@ public class SmService {
 
             // 生成SIGN
             String encrypt = sm3Utils.encrypt(sbf.toString());
-            sbf.append("\n").append("sign:").append(encrypt);
 
-            //待写入文件及新的文件名称
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(targetPath)), "UTF-8"));
-            bufferedWriter.write(sbf.toString());
-            bufferedWriter.close();
+            String newFileTemp = newFile.substring(0, newFile.lastIndexOf(".")) +"." + encrypt + ".txt";
+            System.out.println("生成新文件：" + sbf.toString());
+            File newfile = new File(newFileTemp);
+            File oldfile = new File(newFile);
+            oldfile.renameTo(newfile);
+
+            map.put("newFile", newFile);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -177,28 +181,35 @@ public class SmService {
         }
     }
 
-    public boolean checkSign(String targetPath) {
-        String sign = null;
+    public boolean checkSign(Map<String, Object> map) {
+        String targetPath = map.get("oldFile") + "";
         BufferedReader reader = null;
         StringBuffer sbf = new StringBuffer();
         try {
             reader = new BufferedReader(new FileReader(new File(targetPath)));
             String tempStr;
             while ((tempStr = reader.readLine()) != null) {
-                if (tempStr.startsWith("sign:")) {
-                    sign = tempStr;
-                    continue;
-                }
                 sbf.append(tempStr);
             }
             reader.close();
 
-            if (sign == null) {
-                System.out.println("method = checkSign , sign is null");
-                return false;
-            }
 
-            return sm3Utils.verify(sbf.toString(), sign.replace("sign:",""));
+            String sign = targetPath.substring(targetPath.indexOf(".") + 1, targetPath.lastIndexOf("."));
+            boolean verify = sm3Utils.verify(sbf.toString(), sign);
+            if (verify) {
+
+                String targetPathTemp = targetPath.replace("."+sign, "");
+
+                System.out.println("生成新文件：" + targetPathTemp);
+
+                File newfile = new File(targetPathTemp);
+                File oldfile = new File(targetPath);
+
+                oldfile.renameTo(newfile);
+                map.put("oldFile", targetPathTemp);
+                return true;
+            }
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
