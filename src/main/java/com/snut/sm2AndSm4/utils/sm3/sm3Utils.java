@@ -23,18 +23,18 @@ import java.util.Arrays;
  * SM3 工具类
  */
 //两个方法，用于hash运算，以及hash值对比
-public class sm3Utils{
+public class sm3Utils {
 
     /**
      * 编码格式
      */
     private static final String ENCODING = "UTF-8";
 
-    static{
+    static {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-  //将file转化成string
+    //将file转化成string
     private static String file2String(String sourcePath) throws IOException {
         //对一串字符进行操作
         StringBuffer fileData = new StringBuffer();
@@ -52,21 +52,21 @@ public class sm3Utils{
     }
 
     //hash运算，私钥加密
-    public static String main12( String[] s, File sourcePath ,String result) throws Exception {
-       result= sm4util.file2String(sourcePath);
-        String encrypt=sm3Utils.encrypt(result);
-   	 new SM2KeyVO().getPriHexInSoft();
-   	 SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
-   	 Util.byteToHex(encrypt.getBytes());
-   	 String a = SecurityTestAll.SM2Dec(sm2KeyVO.getPriHexInSoft(), encrypt );
-   	 return a;
+    public static String main12(String[] s, File sourcePath, String result) throws Exception {
+        result = sm4util.file2String(sourcePath);
+        String encrypt = sm3Utils.encrypt(result);
+        new SM2KeyVO().getPriHexInSoft();
+        SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
+        Util.byteToHex(encrypt.getBytes());
+        String a = SecurityTestAll.SM2Dec(sm2KeyVO.getPriHexInSoft(), encrypt);
+        return a;
     }
+
     /**
-     *
      * @param paramStr 要sm3运算的内容
      * @return 摘要值
      */
-    public static String encrypt(String paramStr){
+    public static String encrypt(String paramStr) {
         String resultHexString = "";
         try {
             byte[] srcData = paramStr.getBytes(ENCODING);
@@ -78,36 +78,35 @@ public class sm3Utils{
         return resultHexString;
     }
 
-    public static byte[] hash(byte[] srcData){
+    public static byte[] hash(byte[] srcData) {
         SM3Digest sm3Digest = new SM3Digest();
-        sm3Digest.update(srcData,0,srcData.length);
+        sm3Digest.update(srcData, 0, srcData.length);
         byte[] bytes = new byte[sm3Digest.getDigestSize()];
-        sm3Digest.doFinal(bytes,0);
+        sm3Digest.doFinal(bytes, 0);
         return bytes;
     }
 
     /**
-     *
-     * @param str 明文
+     * @param str       明文
      * @param hexString 密文
      * @return 明文密文对比结果
      */
-    
-    public static boolean main( String[] args, String a ,String arcs) throws Exception {
-   	 new SM2KeyVO().getPubHexInSoft();
-   	 SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
-   	 String b = SecurityTestAll.SM2Dec(sm2KeyVO.getPubHexInSoft(), a);//用私钥解密
-   	 boolean verify = sm3Utils.verify(b, arcs);//调用verify方法进行验证
-   	 return verify; 	
+
+    public static boolean main(String[] args, String a, String arcs) throws Exception {
+        new SM2KeyVO().getPubHexInSoft();
+        SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
+        String b = SecurityTestAll.SM2Dec(sm2KeyVO.getPubHexInSoft(), a);//用私钥解密
+        boolean verify = sm3Utils.verify(b, arcs);//调用verify方法进行验证
+        return verify;
     }
-    
-    public static boolean verify(String str,String hexString){
+
+    public static boolean verify(String str, String hexString) {
         boolean flag = false;
         try {
             byte[] srcData = str.getBytes(ENCODING);
             byte[] sm3Hash = ByteUtils.fromHexString(hexString);
             byte[] hash = hash(srcData);
-            if (Arrays.equals(hash,sm3Hash)){
+            if (Arrays.equals(hash, sm3Hash)) {
                 flag = true;
             }
         } catch (UnsupportedEncodingException e) {
@@ -117,12 +116,20 @@ public class sm3Utils{
     }
 
 
-public static void main(String[] args) {
-    String str = "qaz5tgb&^$>:{*&";
-    String encrypt = sm3Utils.encrypt(str);
-    System.out.println("签名 ："+encrypt);
+//    public static void main(String[] args) {
+//        String str = "qaz5tgb&^$>:{*&";
+//        String encrypt = sm3Utils.encrypt(str);
+//        System.out.println("签名 ：" + encrypt);
+//
+//        boolean verify = sm3Utils.verify(str, encrypt);
+//        System.out.println("验签结果 ：" + verify);
+//    }
 
-    boolean verify = sm3Utils.verify(str, encrypt);
-    System.out.println("验签结果 ：" + verify);
-}
+
+    public static void main(String[] args) throws Exception {
+//    	System.out.println(SM4Utils.encrypt("onQO4J7B8+KSZ0wm7fIOsw==", "15501092367"));
+//        System.out.println(SM4Utils.decrypt("onQO4J7B8+KSZ0wm7fIOsw==", "oK1On8wpvY5KgWOYJP+yOg=="));
+        System.out.println(encrypt("123456"));
+        System.out.println(verify("123456", "207cf410532f92a47dee245ce9b11ff71f578ebd763eb3bbea44ebd043d018fb"));
+    }
 }

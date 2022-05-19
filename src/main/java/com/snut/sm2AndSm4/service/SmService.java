@@ -4,24 +4,26 @@ package com.snut.sm2AndSm4.service;
 import com.snut.sm2AndSm4.utils.Util;
 import com.snut.sm2AndSm4.utils.sm2.SM2KeyVO;
 import com.snut.sm2AndSm4.utils.sm2.SM2SignVO;
+import com.snut.sm2AndSm4.utils.sm3.sm3Utils;
 import com.snut.sm2AndSm4.utils.smUtil.SM4StringUtils;
 import com.snut.sm2AndSm4.utils.smUtil.SM4Utils;
 import com.snut.sm2AndSm4.utils.smUtil.SecurityTestAll;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class SmService {
-//sm2String
-    public Map<String, Object> sm2StringSymmetry(Map<String, Object> map) throws Exception{
+    //sm2String
+    public Map<String, Object> sm2StringSymmetry(Map<String, Object> map) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";
         returnMap.put("str", str);
         // 如果没公钥是加密
-        if(map.get("gong") == null){
+        if (map.get("gong") == null) {
             // 产生SM2密钥
             SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
             returnMap.put("str", str);
@@ -34,13 +36,14 @@ public class SmService {
         }
         return returnMap;
     }
-//sm2签名
-    public Map<String, Object> sm2StringAsymmetric(Map<String, Object> map) throws Exception{
+
+    //sm2签名
+    public Map<String, Object> sm2StringAsymmetric(Map<String, Object> map) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";
         returnMap.put("str", str);
         // 如果没公钥是加密
-        if(map.get("gong") == null){
+        if (map.get("gong") == null) {
             // 产生SM2密钥
             SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
             returnMap.put("str", str);
@@ -54,18 +57,18 @@ public class SmService {
             returnMap.put("newStrYing", null);
         } else {
             returnMap = map;
-            try{
-                if(SecurityTestAll.verifySM2Signature(map.get("gong") + "", str, map.get("ruan") + "")){
+            try {
+                if (SecurityTestAll.verifySM2Signature(map.get("gong") + "", str, map.get("ruan") + "")) {
                     returnMap.put("newStrRuan", "成功");
                 } else {
                     returnMap.put("newStrRuan", "失败");
                 }
-                if(SecurityTestAll.verifySM2Signature(map.get("gong") + "", str, SecurityTestAll.SM2SignHardToSoft(map.get("jia") + ""))){
+                if (SecurityTestAll.verifySM2Signature(map.get("gong") + "", str, SecurityTestAll.SM2SignHardToSoft(map.get("jia") + ""))) {
                     returnMap.put("newStrYing", "成功");
                 } else {
                     returnMap.put("newStrYing", "失败");
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 returnMap.put("newStrRuan", "失败");
                 returnMap.put("newStrYing", "失败");
             }
@@ -74,13 +77,13 @@ public class SmService {
         return returnMap;
     }
 
-    public Map<String, Object> sm4StringECB(Map<String, Object> map) throws Exception{
+    public Map<String, Object> sm4StringECB(Map<String, Object> map) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";
         returnMap.put("str", str);
         SM4StringUtils sm4 = new SM4StringUtils();
         sm4.hexString = true;
-        if(map.get("secretKey") == null){
+        if (map.get("secretKey") == null) {
             String secretKey = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             sm4.secretKey = secretKey;
             returnMap.put("secretKey", secretKey);
@@ -93,13 +96,13 @@ public class SmService {
         return returnMap;
     }
 
-    public Map<String, Object> sm4StringCBC(Map<String, Object> map) throws Exception{
+    public Map<String, Object> sm4StringCBC(Map<String, Object> map) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
         String str = map.get("str") + "";
         returnMap.put("str", str);
         SM4StringUtils sm4 = new SM4StringUtils();
         sm4.hexString = true;
-        if(map.get("secretKey") == null){
+        if (map.get("secretKey") == null) {
             String secretKey = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             String iv = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             sm4.secretKey = secretKey;
@@ -116,20 +119,98 @@ public class SmService {
         return returnMap;
     }
 
-    public Map<String, Object> sm4(Map<String, Object> map) throws Exception{
+    public Map<String, Object> sm4(Map<String, Object> map) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
-        if(map.get("key") == null){
+        if (map.get("key") == null) {
             returnMap = map;
             String key = UUID.randomUUID().toString().replace("-", "").toUpperCase().substring(16);
             byte[] keyData = key.getBytes();
             returnMap.put("key", key);
             SM4Utils.encryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
+
+            // 加密签名sign
+            encryptSign(map.get("newFile") + "");
         } else {
             returnMap = map;
             byte[] keyData = (map.get("key") + "").getBytes();
-            SM4Utils.decryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
+
+            // 验证签名sign
+            if (checkSign(map.get("oldFile") + "")) {
+
+                SM4Utils.decryptFile(keyData, map.get("oldFile") + "", map.get("newFile") + "");
+            } else {
+                throw new RuntimeException("签名错误");
+            }
         }
         return returnMap;
+    }
+
+    public void encryptSign(String targetPath) {
+        BufferedReader reader = null;
+        StringBuffer sbf = new StringBuffer();
+        try {
+            reader = new BufferedReader(new FileReader(new File(targetPath)));
+            String tempStr;
+            while ((tempStr = reader.readLine()) != null) {
+                sbf.append(tempStr);
+            }
+            reader.close();
+
+            // 生成SIGN
+            String encrypt = sm3Utils.encrypt(sbf.toString());
+            sbf.append("\n").append("sign:").append(encrypt);
+
+            //待写入文件及新的文件名称
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(targetPath)), "UTF-8"));
+            bufferedWriter.write(sbf.toString());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public boolean checkSign(String targetPath) {
+        String sign = null;
+        BufferedReader reader = null;
+        StringBuffer sbf = new StringBuffer();
+        try {
+            reader = new BufferedReader(new FileReader(new File(targetPath)));
+            String tempStr;
+            while ((tempStr = reader.readLine()) != null) {
+                if (tempStr.startsWith("sign:")) {
+                    sign = tempStr;
+                    continue;
+                }
+                sbf.append(tempStr);
+            }
+            reader.close();
+
+            if (sign == null) {
+                System.out.println("method = checkSign , sign is null");
+                return false;
+            }
+
+            return sm3Utils.verify(sbf.toString(), sign.replace("sign:",""));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
     }
 
 }
