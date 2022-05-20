@@ -4,7 +4,8 @@ function cs() {
 
     if (phone == "xujiaqi") {
         if (pcode == "123456") {
-            location.href = '/sm2AndSm4/front/index.html#/';
+            // location.href = '/sm2AndSm4/front/index.html#/';
+            location.href = '/sm2AndSm4/index.jsp';
         }
     } else {
         alert('账号或密码错误，请重新输入');
