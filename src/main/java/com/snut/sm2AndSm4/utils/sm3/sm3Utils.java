@@ -1,18 +1,9 @@
 package com.snut.sm2AndSm4.utils.sm3;
 
 import org.bouncycastle.crypto.digests.SM3Digest;
-import org.bouncycastle.crypto.macs.HMac;
-import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
-
-import com.snut.sm2AndSm4.utils.Util;
-import com.snut.sm2AndSm4.utils.sm2.SM2KeyVO;
-import com.snut.sm2AndSm4.utils.smUtil.SecurityTestAll;
-import com.snut.sm2AndSm4.utils.smUtil.sm4util;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -51,16 +42,6 @@ public class sm3Utils {
         return fileData.toString();
     }
 
-    //hash运算，私钥加密
-    public static String main12(String[] s, File sourcePath, String result) throws Exception {
-        result = sm4util.file2String(sourcePath);
-        String encrypt = sm3Utils.encrypt(result);
-        new SM2KeyVO().getPriHexInSoft();
-        SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
-        Util.byteToHex(encrypt.getBytes());
-        String a = SecurityTestAll.SM2Dec(sm2KeyVO.getPriHexInSoft(), encrypt);
-        return a;
-    }
 
     /**
      * @param paramStr 要sm3运算的内容
@@ -86,19 +67,6 @@ public class sm3Utils {
         return bytes;
     }
 
-    /**
-     * @param str       明文
-     * @param hexString 密文
-     * @return 明文密文对比结果
-     */
-
-    public static boolean main(String[] args, String a, String arcs) throws Exception {
-        new SM2KeyVO().getPubHexInSoft();
-        SM2KeyVO sm2KeyVO = SecurityTestAll.generateSM2Key();
-        String b = SecurityTestAll.SM2Dec(sm2KeyVO.getPubHexInSoft(), a);//用私钥解密
-        boolean verify = sm3Utils.verify(b, arcs);//调用verify方法进行验证
-        return verify;
-    }
 
     public static boolean verify(String str, String hexString) {
         boolean flag = false;
@@ -115,21 +83,4 @@ public class sm3Utils {
         return flag;
     }
 
-
-//    public static void main(String[] args) {
-//        String str = "qaz5tgb&^$>:{*&";
-//        String encrypt = sm3Utils.encrypt(str);
-//        System.out.println("签名 ：" + encrypt);
-//
-//        boolean verify = sm3Utils.verify(str, encrypt);
-//        System.out.println("验签结果 ：" + verify);
-//    }
-
-
-    public static void main(String[] args) throws Exception {
-//    	System.out.println(SM4Utils.encrypt("onQO4J7B8+KSZ0wm7fIOsw==", "15501092367"));
-//        System.out.println(SM4Utils.decrypt("onQO4J7B8+KSZ0wm7fIOsw==", "oK1On8wpvY5KgWOYJP+yOg=="));
-        System.out.println(encrypt("123456"));
-        System.out.println(verify("123456", "207cf410532f92a47dee245ce9b11ff71f578ebd763eb3bbea44ebd043d018fb"));
-    }
 }

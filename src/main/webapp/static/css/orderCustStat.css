@@ -1,0 +1,289 @@
+body{
+	padding: 10px 20px;
+	box-sizing: border-box;
+	background-color: #EEEEEE;
+}
+.layui-order-stat .layui-title,
+.layui-cust-stat .layui-title{
+	font-size: 12px;
+	color: #282828;
+	margin-bottom: 8px;
+}
+.layui-order-stat .layui-title .title-line,
+.layui-cust-stat .layui-title .title-line{
+	display: inline-block;
+	width: 3px;
+	height: 10px;
+	margin-right: 12px;
+	background-color: #D36F16;
+	border-radius:4px;
+}
+
+/*表格*/
+.layui-order-stat .layui-stat-box .layui-table-body,
+.layui-cust-stat .layui-stat-box .layui-table-body{
+	background-color: #fff;
+}
+.layui-order-stat .layui-stat-box .layui-table-view,
+.layui-cust-stat .layui-stat-box .layui-table-view{
+	margin-top: 0!important;
+	margin-bottom: 15px;
+}
+.layui-order-stat .layui-stat-box .layui-table-view,
+.layui-order-stat .layui-stat-box .layui-table-view .layui-table-box,
+.layui-order-stat .layui-canvas .source-box .layui-table-view,
+.layui-order-stat .layui-canvas .source-box .layui-table-view .layui-table-box,
+.layui-cust-stat .layui-stat-box .layui-table-view,
+.layui-cust-stat .layui-stat-box .layui-table-view .layui-table-box{
+	border-radius: 12px!important;
+}
+.layui-order-stat .layui-stat-box .layui-table,
+.layui-cust-stat .layui-stat-box .layui-table{
+	font-size: 12px;
+	color: #282828;
+}
+.layui-order-stat .layui-stat-box .layui-table thead tr,
+.layui-order-stat .layui-stat-box .layui-table-header,
+.layui-cust-stat .layui-stat-box .layui-table thead tr,
+.layui-cust-stat .layui-stat-box .layui-table-header{
+	height: 40px;
+	line-height: 40px;
+	background-color: rgba(41,134,254,0.06);
+}
+
+.layui-cust-stat .layui-stat-box .layui-table-header tr .layui-table-cell span,
+.layui-order-stat .layui-stat-box .layui-table-header tr .layui-table-cell span,
+.layui-order-stat .layui-canvas .layui-table-header tr .layui-table-cell span,
+.layui-order-stat .layui-canvas .layui-table-body tr td:first-child{
+	font-weight: bold;
+	font-size: 12px!important;
+}
+.layui-order-stat .layui-canvas .layui-table-body tr{
+	text-align: center;
+}
+.layui-order-stat .layui-canvas .layui-table-body tr td:first-child{
+	background-color: rgba(41,134,254,0.06);
+}
+
+/*canvas - order*/
+.layui-order-stat .layui-canvas .title,
+.layui-order-stat .title-box .title{
+	font-size: 12px;
+	color: #D36F16;
+	padding-left: 30px;
+	margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+	font-weight: bold;
+}
+.layui-order-stat .layui-canvas{
+	width: 100%;
+	padding: 20px 10px;
+	box-sizing: border-box;
+	border-radius: 12px;
+	background-color: #fff;
+}
+.layui-order-stat .layui-canvas .title{
+	/*background: url('../img/icon/order-icon2x.png') left no-repeat;*/
+	background-image: url("../img/icon/order-icon2x.png");
+}
+.layui-order-stat .layui-canvas .source-box{
+	padding-right: 18px;
+	padding-left: 5px;
+}
+.layui-order-stat .layui-canvas .source-box .layui-table thead tr{
+	height: 40px;
+	line-height: 40px;
+	background-color: rgba(41,134,254,0.06);
+}
+
+/*canvas - cust*/
+.layui-cust-stat .canvas-left-list {
+	padding-right: 10px;
+	box-sizing: border-box;
+}
+.layui-cust-stat .canvas-right-list {
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+.layui-cust-stat .canvas-list .canvas-item{
+	padding: 20px 10px;
+	box-sizing: border-box;
+	border-radius: 12px;
+	background-color: #fff;
+}
+.layui-cust-stat .layui-canvas .title{
+	font-size: 12px;
+	color: #D36F16;
+	padding-left: 30px;
+	margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+}
+.layui-cust-stat .layui-canvas .source-register{
+	/*background: url('../img/icon/user-icon2x.png') left no-repeat;*/
+	background-image: url("../img/icon/user-icon2x.png");
+}
+.layui-cust-stat .layui-canvas .new-user{
+	/*background: url('../img/icon/scale-icon2x.png') left no-repeat;*/
+	background-image: url("../img/icon/scale-icon2x.png");
+}
+
+/*系统首页样式*/
+.layui-order-stat .layui-top-cards .grid-demo{
+	height: 140px;
+	display: flex;
+	color: #fff;
+	text-align: center;
+	align-items: center;
+	border-radius: 12px;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.layui-order-stat .layui-top-cards .grid-demo span{
+	font-family: 'DIN Alternate Bold';
+	margin-bottom: -30px;
+}
+.layui-order-stat .layui-top-cards .layui-col-md4:nth-child(1) .grid-demo{
+	 background-image: url("../img/icon/index-icon-01-@2x.png");
+ }
+.layui-order-stat .layui-top-cards .layui-col-md4:nth-child(2) .grid-demo{
+	background-image: url("../img/icon/index-icon-02-@2x.png");
+}
+.layui-order-stat .layui-top-cards .layui-col-md4:nth-child(3) .grid-demo{
+	background-image: url("../img/icon/index-icon-03-@2x.png");
+}
+.layui-order-stat .layui-top-cards .layui-col-md4:nth-child(4) .grid-demo{
+	background-image: url("../img/icon/index-icon-04-@2x.png");
+}
+
+
+.layui-order-stat .title-box .pending-tit,
+.layui-order-stat .layui-preview-box .preview-left .title,
+.layui-order-stat .layui-preview-box .preview-right .title,
+.layui-order-stat .layui-order-canvas .orders,
+.layui-order-stat .layui-order-canvas .sales,
+.layui-order-stat .layui-canvas .title,
+.layui-cust-stat .layui-canvas .source-register,
+.layui-cust-stat .layui-canvas .new-user{
+	background-size: 20px 20px;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.layui-order-stat .title-box .pending-tit{
+	background-image: url("../img/icon/penging-icon@2x.png");
+}
+.layui-order-stat .layui-card-pending{
+	background-color: #fff;
+	padding: 20px 15px;
+	margin: 6px 0 15px 0;
+	border-radius: 12px;
+	box-sizing: border-box;
+}
+.layui-order-stat .layui-card-pending .pending-item{
+	font-size: 12px;
+	position: relative;
+	height: 40px;
+	color: #666666;
+	line-height: 40px;
+	margin-bottom: 10px;
+	padding-left: 30px;
+	box-sizing: border-box;
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.layui-order-stat .layui-card-pending .pending-item:hover,
+.layui-order-stat .layui-card-pending .pending-item:hover .data{
+	cursor: pointer;
+	color: #D36F16;
+}
+.layui-order-stat .layui-card-pending .pending-item:after{
+	position: absolute;
+	content: '';
+	top: 50%;
+	right: 20%;
+	width: 1px;
+	height: 12px;
+	background-color: #ddd;
+	z-index: 10;
+	transform: translateY(-50%);
+}
+.layui-order-stat .layui-card-pending .pending-item:last-child:after{
+	display: none;
+}
+.layui-order-stat .layui-card-pending .pending-item .data{
+	color: #282828;
+	font-weight: bold;
+}
+.layui-order-stat .layui-card-pending .pending-item:nth-child(1){
+	background-image: url("../img/icon/pending-nopay@2x.png");
+}
+.layui-order-stat .layui-card-pending .pending-item:nth-child(2){
+	background-image: url("../img/icon/pending-nodrop@2x.png");
+}
+.layui-order-stat .layui-card-pending .pending-item:nth-child(3){
+	background-image: url("../img/icon/pending-isdrop@2x.png");
+}
+.layui-order-stat .layui-card-pending .pending-item:nth-child(4){
+	background-image: url("../img/icon/pending-order@2x.png");
+}
+
+
+.layui-order-stat .layui-preview-box .preview-left{
+	padding-right: 8px;
+	box-sizing: border-box;
+}
+.layui-order-stat .layui-preview-box .preview-right{
+	padding-left: 8px;
+	box-sizing: border-box;
+}
+.layui-order-stat .layui-preview-box .preview-left .title{
+	background-image: url("../img/icon/preview-left-icon@2x.png");
+}
+.layui-order-stat .layui-preview-box .preview-right .title{
+	background-image: url("../img/icon/preview-right-icon@2x.png");
+	/*background: url("../img/icon/preview-right-icon@2x.png") left no-repeat;*/
+}
+.layui-order-stat .layui-preview-box .layui-card{
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 20px 15px;
+	box-sizing: border-box;
+}
+.layui-order-stat .layui-preview-box .innerDiv{
+	display: flex;
+	color: #666666;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	line-height: 26px;
+}
+.layui-order-stat .layui-preview-box .innerDiv div:first-child{
+	font-family: 'DIN Alternate Bold';
+	font-weight: bold;
+	color: #282828;
+}
+
+.layui-order-stat .layui-order-canvas{
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 20px 15px;
+	box-sizing: border-box;
+	margin-top: 10px;
+}
+.layui-order-stat .layui-order-canvas .title{
+	margin-bottom: 10px;
+}
+.layui-order-stat .layui-order-canvas .orders{
+	/*background: url("../img/icon/canvas-order-icon@2x.png") left no-repeat;*/
+	background-image: url("../img/icon/canvas-order-icon@2x.png");
+}
+.layui-order-stat .layui-order-canvas .sales{
+	/*background: url("../img/icon/canvas-sale-icon@2x.png") left no-repeat;*/
+	background-image: url("../img/icon/canvas-sale-icon@2x.png");
+}
